@@ -1,8 +1,8 @@
 class Multiplicative
   class << self
-    def persistence(n, steps = 1)
+    def persistence(n, steps = 0)
       return steps if n == 0
-      return steps if get_length(n) <= 1
+      return steps if get_length(n) == 1
 
       persistence(split(n).inject(:*), steps += 1)
     end
