@@ -50,8 +50,6 @@ class Loop
 
   rescue SystemExit, Interrupt
     File.write(File.dirname(__FILE__) + '/../last_checked_potencies', "#{[@x2, @x3, @x5, @x7]}")
-    previous_highest_number = eval File.read(File.dirname(__FILE__) + '/../highest_number', @n)
-    File.write(File.dirname(__FILE__) + '/../highest_number', @n) unless @n < previous_highest_number
   end
 
   def split(n)
