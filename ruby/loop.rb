@@ -12,6 +12,7 @@ class Loop
         File.write(File.dirname(__FILE__) + '/../interesting_numbers', "Steps: #{steps}, Number: #{@current_number}\n", mode: 'a')
       elsif steps % 10_000_000 == 0
         puts "Reporting in from current number: #{@current_number}"
+        File.write(File.dirname(__FILE__) + '/../last_checked_number', @current_number)
       end
 
       @current_number += 1
