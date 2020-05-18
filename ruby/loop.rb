@@ -38,7 +38,7 @@ class Loop
       else
         steps = Multiplicative.persistence(n)
 
-        if steps > 8
+        if steps > 7
           puts 'Found something interesting!'
           saved_text = "Steps: #{steps}, Number: #{n}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
           File.write(File.dirname(__FILE__) + '/../interesting_numbers', saved_text, mode: 'a')
