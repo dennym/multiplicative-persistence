@@ -1,24 +1,61 @@
+MAX = 150
+
 class Loop
   def initialize
-    @current_number = File.read(File.dirname(__FILE__) + '/../last_checked_number').to_i
+    @x2, @x3, @x5, @x7 = eval File.read(File.dirname(__FILE__) + '/../last_checked_number')
+
+    puts "Initialize with: #{[@x2, @x3, @x5, @x7]}"
+
+    @current_number = Enumerator.new do |y|
+      values = %w[@x2 @x3 @x5 @x7]
+      loop do
+        y.yield (2**@x2 * 3**@x3 * 5**@x5 * 7**@x7)
+
+        if [@x2, @x3, @x5, @x7] == [MAX, MAX, MAX, MAX]
+          break
+        elsif @x5 == MAX && @x3 == MAX && @x2 == MAX
+          @x7 += 1
+          @x2 = @x3 = @x5 = 0
+        elsif @x3 == MAX && @x2 == MAX
+          @x5 += 1
+          @x2 = @x3 = 0
+        elsif @x2 == MAX
+          @x3 += 1
+          @x2 = 0
+        else
+          @x2 += 1
+        end
+      end
+    end
   end
 
   def start
     while true
-      steps = Multiplicative.persistence(@current_number)
+      # if split(@current_number) & [0, 5] == []
+      if split(@current_number).include?(0)
+        # skip
+      else
+        steps = Multiplicative.persistence(@current_number)
 
-      if steps > 9
-        puts 'Found something interesting!'
-        File.write(File.dirname(__FILE__) + '/../interesting_numbers', "Steps: #{steps}, Number: #{@current_number}\n", mode: 'a')
-      elsif @current_number % 50_000_000 == 0
-        puts "Reporting in from current number: #{@current_number}"
-        File.write(File.dirname(__FILE__) + '/../last_checked_number', @current_number)
+        if steps > 8
+          puts 'Found something interesting!'
+          saved_text = "Steps: #{steps}, Number: #{@current_number}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
+          File.write(File.dirname(__FILE__) + '/../interesting_numbers', saved_text, mode: 'a')
+        elsif [@x2, @x3, @x5, @x7].map{_1 % 10}.unique == [0]
+          puts "Reporting in from current number: #{@current_number}"
+        end
       end
 
-      @current_number += 1
+      @current_number.next
     end
 
   rescue SystemExit, Interrupt
-    File.write(File.dirname(__FILE__) + '/../last_checked_number', @current_number)
+    File.write(File.dirname(__FILE__) + '/../last_checked_number', "#{[@x2, @x3, @x5, @x7]}")
+  end
+
+  def split(n)
+    split=->(x, y=[]) {x < 10 ? y.unshift(x) : split.(x/10, y.unshift(x%10))}
+
+    split.(n)
   end
 end
