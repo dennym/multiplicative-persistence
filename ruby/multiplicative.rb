@@ -20,5 +20,3 @@ class Multiplicative
     end
   end
 end
-
-
