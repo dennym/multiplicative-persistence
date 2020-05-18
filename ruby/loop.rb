@@ -11,7 +11,7 @@ class Loop
         puts 'Found something interesting!'
         File.write(File.dirname(__FILE__) + '/../interesting_numbers', "Steps: #{steps}, Number: #{@current_number}\n", mode: 'a')
       elsif steps % 10_000_000
-        puts "Reporting in from current number: #{current_number}"
+        puts "Reporting in from current number: #{@current_number}"
       end
 
       @current_number += 1
