@@ -2,7 +2,7 @@ MAX = 150
 
 class Loop
   def initialize
-    @x2, @x3, @x5, @x7 = eval File.read(File.dirname(__FILE__) + '/../last_checked_number')
+    @x2, @x3, @x5, @x7 = eval File.read(File.dirname(__FILE__) + '/../last_checked_potencies')
 
     puts "Initialize with: #{[@x2, @x3, @x5, @x7]}"
 
@@ -31,25 +31,27 @@ class Loop
 
   def start
     while true
-      n = @current_number.next
+      @n = @current_number.next
       # if split(@current_number) & [0, 5] == []
-      if split(n).include?(0)
+      if split(@n).include?(0)
         # skip
       else
-        steps = Multiplicative.persistence(n)
+        steps = Multiplicative.persistence(@n)
 
         if steps > 7
           puts 'Found something interesting!'
-          saved_text = "Steps: #{steps}, Number: #{n}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
+          saved_text = "Steps: #{steps}, Number: #{@n}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
           File.write(File.dirname(__FILE__) + '/../interesting_numbers', saved_text, mode: 'a')
         elsif [@x2, @x3, @x5, @x7].map{_1 % 10}.uniq == [0]
-          puts "Reporting in from current number: #{n}"
+          puts "Reporting in from current number: #{@n}"
         end
       end
     end
 
   rescue SystemExit, Interrupt
-    File.write(File.dirname(__FILE__) + '/../last_checked_number', "#{[@x2, @x3, @x5, @x7]}")
+    File.write(File.dirname(__FILE__) + '/../last_checked_potencies', "#{[@x2, @x3, @x5, @x7]}")
+    previous_highest_number = eval File.read(File.dirname(__FILE__) + '/../highest_number', @n)
+    File.write(File.dirname(__FILE__) + '/../highest_number', @n) unless @n < previous_highest_number
   end
 
   def split(n)
