@@ -31,22 +31,21 @@ class Loop
 
   def start
     while true
+      n = @current_number.next
       # if split(@current_number) & [0, 5] == []
-      if split(@current_number).include?(0)
+      if split(n).include?(0)
         # skip
       else
-        steps = Multiplicative.persistence(@current_number)
+        steps = Multiplicative.persistence(n)
 
         if steps > 8
           puts 'Found something interesting!'
-          saved_text = "Steps: #{steps}, Number: #{@current_number}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
+          saved_text = "Steps: #{steps}, Number: #{n}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
           File.write(File.dirname(__FILE__) + '/../interesting_numbers', saved_text, mode: 'a')
-        elsif [@x2, @x3, @x5, @x7].map{_1 % 10}.unique == [0]
-          puts "Reporting in from current number: #{@current_number}"
+        elsif [@x2, @x3, @x5, @x7].map{_1 % 10}.uniq == [0]
+          puts "Reporting in from current number: #{n}"
         end
       end
-
-      @current_number.next
     end
 
   rescue SystemExit, Interrupt
