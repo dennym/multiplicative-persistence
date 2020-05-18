@@ -10,7 +10,7 @@ class Loop
       if steps > 9
         puts 'Found something interesting!'
         File.write(File.dirname(__FILE__) + '/../interesting_numbers', "Steps: #{steps}, Number: #{@current_number}\n", mode: 'a')
-      elsif @current_number % 10_000_000 == 0
+      elsif @current_number % 50_000_000 == 0
         puts "Reporting in from current number: #{@current_number}"
         File.write(File.dirname(__FILE__) + '/../last_checked_number', @current_number)
       end
