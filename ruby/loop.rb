@@ -1,4 +1,4 @@
-require './multiplicative.rb'
+require_relative './multiplicative.rb'
 
 class Loop
   def initialize
