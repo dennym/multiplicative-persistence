@@ -34,9 +34,8 @@ class Loop
     while true
       store_iterations += 1
       @n = @current_number.next
-      if split(@n).include?(0)
-        # skip
-      else
+
+      unless split(@n).include?(0)
         steps = Multiplicative.persistence(@n)
 
         if steps > 7
@@ -44,11 +43,12 @@ class Loop
           saved_text = "Found at: #{Time.now.to_i}, Steps: #{steps}, Number: #{@n}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
           File.write(File.dirname(__FILE__) + '/../interesting_numbers', saved_text, mode: 'a')
         end
-        if store_iterations == 10_000
-          File.write(File.dirname(__FILE__) + '/../last_checked_potencies', "#{[@x2, @x3, @x5, @x7]}")
-          store_iterations = 0
-          puts 'Progress saved!'
-        end
+      end
+
+      if store_iterations == 10_000
+        File.write(File.dirname(__FILE__) + '/../last_checked_potencies', "#{[@x2, @x3, @x5, @x7]}")
+        store_iterations = 0
+        puts 'Progress saved!'
       end
     end
 
