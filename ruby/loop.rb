@@ -1,4 +1,4 @@
-MAX = 30_000
+MAX = 50_000
 
 class Loop
   def initialize
@@ -30,9 +30,10 @@ class Loop
   end
 
   def start
+    store_iterations = 0
     while true
+      store_iterations += 1
       @n = @current_number.next
-      # if split(@current_number) & [0, 5] == []
       if split(@n).include?(0)
         # skip
       else
@@ -40,10 +41,12 @@ class Loop
 
         if steps > 7
           puts 'Found something interesting!'
-          saved_text = "Steps: #{steps}, Number: #{@n}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
+          saved_text = "Found at: #{Time.now.to_i}, Steps: #{steps}, Number: #{@n}, Potencies: #{[@x2, @x3, @x5, @x7]}\n"
           File.write(File.dirname(__FILE__) + '/../interesting_numbers', saved_text, mode: 'a')
-        elsif [@x2, @x3, @x5, @x7].map{_1 % 10}.uniq == [0]
-          puts "Reporting in from current number: #{@n}"
+        end
+        if store_iterations == 10_000
+          File.write(File.dirname(__FILE__) + '/../last_checked_potencies', "#{[@x2, @x3, @x5, @x7]}")
+          store_iterations = 0
         end
       end
     end
