@@ -1,4 +1,4 @@
-MAX = 150
+MAX = 30_000
 
 class Loop
   def initialize
