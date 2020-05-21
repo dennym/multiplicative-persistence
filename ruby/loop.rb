@@ -54,7 +54,7 @@ class Loop
         end
       end
 
-      if store_iterations == 50_000
+      if store_iterations == 25_000
         File.write(File.dirname(__FILE__) + '/../last_checked_potencies', "#{[@x2, @x3, @x5, @x7]}")
         store_iterations = 0
         puts 'Progress saved!'
