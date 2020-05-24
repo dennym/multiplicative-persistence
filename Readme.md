@@ -7,8 +7,17 @@
   ruby ruby/start.rb
 ```
 
+## C extension
 
-gcc -shared -o ../build/libpow.so -fPIC pow.c
+### Library
+```
+  gcc -shared -o ../build/libpow.so -fPIC pow.c
+```
+
+### Test runner
+```
+gcc pow.c -lgmp -o testrunner
+```
 
 ## TODO:
 

@@ -1,3 +1,3 @@
-unsigned long long math_pow(int base, unsigned long long ext);
-unsigned long long loop_pow(int base, unsigned long long ext);
-int foo(int bar);
+char* mpz_pow(int base, int ext);
+char* loop_pow(int base, int ext);
+char* loop_pow_reduced(int base, int ext);
