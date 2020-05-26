@@ -3,6 +3,7 @@
 ## Ruby Approach
 
 ```
+  gem install benchmark-ips
   gem install ffi
   ruby ruby/start.rb
 ```
