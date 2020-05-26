@@ -1,6 +1,6 @@
 module RubyFFI
   extend FFI::Library
-  ffi_lib '../build/libpow.so'
+  ffi_lib File.join(__dir__, 'libpow.so')
 
   attach_function :mpz_pow, [ :int, :int ], :string
   attach_function :loop_pow, [ :int, :int ], :string
