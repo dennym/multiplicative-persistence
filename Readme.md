@@ -3,20 +3,22 @@
 ## Ruby Approach
 
 ```
-  gem install benchmark-ips
-  gem install ffi
-  ruby ruby/start.rb
+gem install benchmark-ips
+gem install ffi
+ruby ruby/start.rb
 ```
 
 ## C extension
 
 ### Library
 ```
-  gcc -shared -o libpow.so -fPIC pow.c
+cd c_src/
+gcc -shared -o libpow.so -fPIC pow.c
 ```
 
 ### Test runner
 ```
+cd c_src/
 gcc pow.c -lgmp -o testrunner
 ```
 
