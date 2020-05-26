@@ -12,13 +12,15 @@
 
 ### Library
 ```
-  gcc -shared -o ../build/libpow.so -fPIC pow.c
+  gcc -shared -o libpow.so -fPIC pow.c
 ```
 
 ### Test runner
 ```
 gcc pow.c -lgmp -o testrunner
 ```
+
+## Rust extension
 
 ## TODO:
 
